@@ -1,0 +1,19 @@
+{
+  "name": "inventorymanagementbackend",
+  "version": "1.0.0",
+  "description": "inventory management backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DatDereDaag/InventoryManagementBackend.git"
+  },
+  "author": "DatDereDaag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DatDereDaag/InventoryManagementBackend/issues"
+  },
+  "homepage": "https://github.com/DatDereDaag/InventoryManagementBackend#readme"
+}
