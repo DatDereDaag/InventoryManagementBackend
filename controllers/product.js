@@ -46,17 +46,7 @@ exports.update_product = async (req, res, next) => {
   }
 
   try {
-    const newProduct = {
-      name: req.body.name,
-      description: req.body.description,
-      price: req.body.price,
-      quantity: req.body.quantity,
-      category: req.body.category,
-      supplier: req.body.supplier,
-      updatedAt: new Date(),
-    };
-
-    const result = await Product.findByIdAndUpdate(productId, newProduct, {
+    const result = await Product.findByIdAndUpdate(productId, req.body, {
       new: true,
     });
 
@@ -80,7 +70,6 @@ exports.create_product = async (req, res, next) => {
 
   try {
     const product = new Product({
-      _id: new mongoose.Types.ObjectId(),
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
