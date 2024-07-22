@@ -1,11 +1,14 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const productRoutes = require("./routes/product");
 const salesRoutes = require("./routes/sales");
 
 const app = express();
+
+mongoose.connect(process.env.MOBGODB_URI);
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
