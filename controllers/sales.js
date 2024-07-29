@@ -53,6 +53,7 @@ exports.create_sale = async (req, res, next) => {
     const sale = new Sale({
       product: productID,
       quantity: req.body.quantity,
+      unit_price: foundProduct.price,
       sold_for: req.body.sold_for,
       total: req.body.quantity * foundProduct.price,
     });
@@ -70,24 +71,66 @@ exports.create_sale = async (req, res, next) => {
 };
 
 exports.update_sale = async (req, res, next) => {
-  // try {
-  //   const saleId = req.params.saleID;
-  //   const oldSale = await Sale.findById(saleId);
-  //   if (req.body.productID) {
-  //     const oldProduct = await Product.findById(oldSale.productID);
-  //   }
-  //   if (!oldSale) {
-  //     return res.status(404).json({ message: "Sale not found" });
-  //   }
-  //   const product = oldSale.product;
-  //   const updatedSale = await Sale.findByIdAndUpdate(saleId, req.body, {
-  //     new: true,
-  //   });
-  //   res.status(200).json({ message: "Sale updated", updatedSale });
-  // } catch (err) {
-  //   console.log(err);
-  //   res.status(500).json({ message: "Error updating sale" });
-  // }
+  if (req.body.quantity && req.body.quantity < 0) {
+    return res.status(400).json({ message: "Invalid quantity" });
+  } else if (req.body.sold_for && req.body.sold_for < 0) {
+    return res.status(400).json({ message: "Invalid sold_for price" });
+  }
+
+  try {
+    const sale = await Sale.findById(req.params.saleID);
+
+    if (!sale) {
+      return res.status(404).json({ message: "Sale not found" });
+    }
+
+    if (req.body.quantity) {
+      const product = Product.findById(sale.product);
+
+      if (product.length > 0) {
+        console.log(product);
+        product.quantity += sale.quantity - req.body.quantity;
+
+        if (product.quantity < 0) {
+          return res
+            .status(400)
+            .json({ message: "Insufficient quantity in inventory" });
+        }
+
+        await product.save();
+      }
+    }
+
+    sale.quantity = req.body.quantity || sale.quantity;
+    sale.sold_for = req.body.sold_for || sale.sold_for;
+    sale.total = sale.quantity * sale.unit_price;
+
+    const result = await sale.save();
+    res.status(200).json({ message: "Sale updated successfully", result });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error updating sale" });
+  }
 };
 
-exports.delete_sale = async (req, res, next) => {};
+exports.delete_sale = async (req, res, next) => {
+  const saleId = req.params.saleID;
+  try {
+    const sale = await Sale.findByIdAndDelete(saleId);
+    if (sale) {
+      const product = await Product.findById(sale.product);
+      if (product) {
+        product.quantity += sale.quantity;
+        await product.save();
+      }
+      res
+        .status(200)
+        .json({ message: "Sale deleted successfully", dataDeleted: sale });
+    } else {
+      res.status(404).json({ message: "Sale not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error retrieving sale" });
+  }
+};

@@ -12,6 +12,10 @@ const saleSchema = new mongoose.Schema(
       required: true,
       min: [0, "Quantity cannot be negative"],
     },
+    unit_price: {
+      type: Number,
+      required: true,
+    },
     sold_for: {
       type: Number,
       required: true,
