@@ -7,9 +7,17 @@ const saleSchema = new mongoose.Schema(
       ref: "Product",
       required: true,
     },
-    quantity: { type: Number, required: true },
-    sale_amt: { type: Number, required: true },
-    date: { type: Date, default: Date.now },
+    quantity: {
+      type: Number,
+      required: true,
+      min: [0, "Quantity cannot be negative"],
+    },
+    sold_for: {
+      type: Number,
+      required: true,
+      min: [0, "Price sold at cannot be negative"],
+    },
+    total: { type: Number, required: true },
   },
   { timestamps: true }
 );

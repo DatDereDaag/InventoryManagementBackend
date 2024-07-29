@@ -22,7 +22,7 @@ exports.get_all = async (req, res, next) => {
   try {
     const products = await Product.find();
     if (products.length > 0) {
-      res.status(200).json(products);
+      res.status(200).json({ length: products.length, products });
     } else {
       res.status(200).json({ message: "No products found" });
     }
@@ -33,8 +33,6 @@ exports.get_all = async (req, res, next) => {
 };
 
 exports.update_product = async (req, res, next) => {
-  const productId = req.params.productID;
-
   if (req.body.name) {
     const product = await Product.find({ name: req.body.name });
 
@@ -45,7 +43,14 @@ exports.update_product = async (req, res, next) => {
     }
   }
 
+  if (req.body.price && req.body.price < 0) {
+    return res.status(400).json({ message: "Invalid price" });
+  } else if (req.body.quanity && req.body.quantity < 0) {
+    return res.status(400).json({ message: "Invalid quantity" });
+  }
+
   try {
+    const productId = req.params.productID;
     const result = await Product.findByIdAndUpdate(productId, req.body, {
       new: true,
     });
@@ -66,6 +71,10 @@ exports.create_product = async (req, res, next) => {
 
   if (name) {
     return res.status(400).json({ message: "Product already exists" });
+  } else if (req.body.price < 0) {
+    return res.status(400).json({ message: "Invalid price" });
+  } else if (req.body.quantity < 0) {
+    return res.status(400).json({ message: "Invalid quantity" });
   }
 
   try {
