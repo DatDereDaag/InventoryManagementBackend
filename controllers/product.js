@@ -85,8 +85,6 @@ exports.create_product = async (req, res, next) => {
       quantity: req.body.quantity,
       category: req.body.category,
       supplier: req.body.supplier,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     });
 
     const result = await product.save();

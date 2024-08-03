@@ -17,10 +17,10 @@ exports.get_all = async (req, res, next) => {
 };
 
 exports.get_sale = async (req, res, next) => {
-  const saleId = req.params.sale;
+  const saleId = req.params.saleID;
 
   try {
-    const sale = await Sale.findById(saleId);
+    const sale = await Sale.findById(saleId).populate("product");
 
     if (sale) {
       res.status(200).json(sale);
@@ -88,7 +88,6 @@ exports.update_sale = async (req, res, next) => {
       const product = Product.findById(sale.product);
 
       if (product.length > 0) {
-        console.log(product);
         product.quantity += sale.quantity - req.body.quantity;
 
         if (product.quantity < 0) {
