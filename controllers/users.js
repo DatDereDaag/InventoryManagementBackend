@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -59,17 +58,15 @@ exports.register_user = async (req, res, next) => {
       return res.status(400).json({ message: err.message });
     }
 
-    return res
-      .status(201)
-      .json({
-        message: "User created successfully",
-        result: {
-          name: newUser.name,
-          email: newUser.email,
-          role: newUser.role,
-          id: newUser._id,
-        },
-      });
+    return res.status(201).json({
+      message: "User created successfully",
+      result: {
+        name: newUser.name,
+        email: newUser.email,
+        role: newUser.role,
+        id: newUser._id,
+      },
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Error registering user" });
