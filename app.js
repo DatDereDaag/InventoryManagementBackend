@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const productRoutes = require("./routes/product");
 const salesRoutes = require("./routes/sales");
+const usersRoutes = require("./routes/users");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 
 app.use("/products", productRoutes);
 app.use("/sales", salesRoutes);
+app.use("/users", usersRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");
