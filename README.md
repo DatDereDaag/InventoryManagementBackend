@@ -56,9 +56,8 @@ npm install
 
 5. Start the development server:
 ```bash
-npm run dev
+npm start
 ```
-The API will run on http://localhost:5000.
 
 ## Environment Variables
 Create a .env file in the root directory and configure the following variables:
