@@ -54,7 +54,7 @@ npm install
 
 4. Set up the environment variables (see Environment Variables).
 
-5. Start the development server:
+5. Start the server:
 ```bash
 npm start
 ```
