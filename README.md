@@ -92,8 +92,23 @@ JWT_SECRET=your_jwt_secret_key
 - GET /:saleID
 - DELETE /:saleID
 - PATCH /:saleID
-- Body: 
-   ```json
+- Body:
+  ```json
+    {
+      "productID" : "66a6f3ce0acb797bdd533dae",
+      "quantity": "2",
+      "sold_for": "14.29"
+    }
+    ```
+
+### Products
+- POST /
+- GET /
+- GET /:productID
+- DELETE /:productID
+- PATCH /:productID
+- Body:
+  ```json
    {
      "name" : "Bobby",
      "description": "real bobby",
@@ -103,18 +118,4 @@ JWT_SECRET=your_jwt_secret_key
      "supplier": "Bob"
    }
    ```
-
-### Products
-- POST /
-- GET /
-- GET /:productID
-- DELETE /:productID
-- PATCH /:productID
-- Body: 
-    ```json
-    {
-      "productID" : "66a6f3ce0acb797bdd533dae",
-      "quantity": "2",
-      "sold_for": "14.29"
-    }
-    ```
+    
