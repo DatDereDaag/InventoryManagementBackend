@@ -8,9 +8,7 @@ This is an API for managing an inventory system, built with Node.js, Express, an
 - Installation
 - Environment Variables
 - API Endpoints
-- Authentication and Authorization
 - Usage
-- Error Handling
 
 ## Features
 - CRUD operations for products, sales, and users
