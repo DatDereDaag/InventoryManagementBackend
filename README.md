@@ -76,6 +76,15 @@ JWT_SECRET=your_jwt_secret_key
 - GET /
 - GET /:userID
 - DELETE /:userID
+- Body:
+    ```json
+    {
+      "name" : "Bob",
+      "email": "bob@gmail.com",
+      "password": "test1234",
+      "role": "admin"
+    }
+    ```
 
 ### Sales
 - POST /
@@ -83,6 +92,17 @@ JWT_SECRET=your_jwt_secret_key
 - GET /:saleID
 - DELETE /:saleID
 - PATCH /:saleID
+- Body: 
+   ```json
+   {
+     "name" : "Bobby",
+     "description": "real bobby",
+     "price": "12.99",
+     "quantity": "5",
+     "category": "snack",
+     "supplier": "Bob"
+   }
+   ```
 
 ### Products
 - POST /
@@ -90,3 +110,11 @@ JWT_SECRET=your_jwt_secret_key
 - GET /:productID
 - DELETE /:productID
 - PATCH /:productID
+- Body: 
+    ```json
+    {
+      "productID" : "66a6f3ce0acb797bdd533dae",
+      "quantity": "2",
+      "sold_for": "14.29"
+    }
+    ```
